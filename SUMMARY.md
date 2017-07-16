@@ -13,6 +13,7 @@
 
 
 ### Core Technologies
+- [The IoC container](/ioc/README.md)
 
 
 ### Data Access
