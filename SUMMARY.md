@@ -24,5 +24,6 @@
 - [Spring Security](/security/README.md)
   - [Preface](/security/preface/README.md)
     - [Getting Started](/security/preface/getting-started.md)
-    - [Introduction](/security/preface/introduction/README.md)
+    - [Introduction](/security/preface/introduction.md)
+    - [What's New in Spring Security 4.2](/security/preface/whats-new.md)
 
