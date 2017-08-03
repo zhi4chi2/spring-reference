@@ -1,8 +1,11 @@
 - [Spring Security](/security/README.md)
   - [Preface](/security/preface/README.md)
-    - [Getting Started](/security/preface/getting-started.md)
+    - Getting Started
     - [Introduction](/security/preface/introduction.md)
     - [What's New in Spring Security 4.2](/security/preface/whats-new.md)
+    - [Samples and Guides](/security/preface/samples.md)
+    - [Java Configuration](/security/preface/java-config.md)
+    - [Security Namespace Configuration](/security/preface/namespace/README.md)
 
 
 At the bottom level you'll need to deal with issues such as transport security and system identification, in order to mitigate man-in-the-middle attacks.
