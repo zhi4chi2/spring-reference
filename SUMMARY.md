@@ -31,4 +31,5 @@
     - [Security Namespace Configuration](/security/preface/namespace/README.md)
       - [A Minimal http Configuration](/security/preface/namespace/minimal-http.md)
       - [form login](/security/preface/namespace/form-login.md)
+      - [basic login](/security/preface/namespace/basic-login.md)
 

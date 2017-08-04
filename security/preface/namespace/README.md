@@ -190,6 +190,9 @@ http.security="none" 和 intercept-url.access="IS_AUTHENTICATED_ANONYMOUSLY" 的
 - intercept-url.access="IS_AUTHENTICATED_ANONYMOUSLY" 则可以
 
 
+完整例子参见 [form login](/security/preface/namespace/form-login.md)
+
+
 使用 basic 认证
 ```xml
   <http use-expressions="false">
@@ -198,6 +201,9 @@ http.security="none" 和 intercept-url.access="IS_AUTHENTICATED_ANONYMOUSLY" 的
   </http>
 ```
 此时将优先使用 basic 认证。文档说这种方式时依然可以使用 form-login 但测试好像不可以。
+
+
+完整例子参见 [basic login](/security/preface/namespace/basic-login.md)
 
 
 ## Logout Handling

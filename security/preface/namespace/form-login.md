@@ -24,6 +24,7 @@ src/main/webapp/WEB-INF/web.xml
 ```
 
 
+# access="permitAll" 方式
 src/main/resources/spring-security.xml
 ```xml
 <beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"
@@ -124,3 +125,48 @@ src/main/webapp/index.jsp
         <td><input type='text' name='username' value='<c:if test="${not empty param.login_error}"><c:out value="${SPRING_SECURITY_LAST_USERNAME}"/></c:if>' /></td>
 ```
 并不会起作用，因为 UsernamePasswordAuthenticationFilter.SPRING_SECURITY_LAST_USERNAME_KEY 在 spring security 3 中已经标为 deprecated ，在 spring 4 中已经删除。如果想得到 last username 需要自定义 AuthenticationFailureHandler
+
+
+# security="none" 方式
+src/main/resources/spring-security.xml
+```xml
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+  <http pattern="/login.jsp*" security="none" />
+  <http>
+    <intercept-url pattern="/**" access="hasRole('USER')" />
+    <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?login_error=1" />
+    <logout />
+    <csrf disabled="true" />
+  </http>
+
+  <authentication-manager>
+    <authentication-provider>
+      <user-service>
+        <user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
+        <user name="bob" password="bobspassword" authorities="ROLE_USER" />
+      </user-service>
+    </authentication-provider>
+  </authentication-manager>
+</beans:beans>
+```
+
+
+注意第 10 行要定义 csrf disabled ，默认是启用 csrf 的。
+
+
+同时 login.jsp 中要去掉（可选）第 35 行的
+```jsp
+    <input type="hidden" name="<c:out value="${_csrf.parameterName}"/>" value="<c:out value="${_csrf.token}"/>" />
+```
+否则因为 login.jsp 的 security="none" 使得实际生成
+```html
+    <input type="hidden" name="" value="" />
+```
+因此如果 spring-security.xml 中没有加第 10 行 csrf disabled 的话，就会导致 csrf 出错。
+
+
+综上， security="none" 方式不如 access="permitAll" 方式。
+
