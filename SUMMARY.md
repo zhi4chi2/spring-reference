@@ -29,4 +29,6 @@
     - [Samples and Guides](/security/preface/samples.md)
     - [Java Configuration](/security/preface/java-config.md)
     - [Security Namespace Configuration](/security/preface/namespace/README.md)
+      - [A Minimal http Configuration](/security/preface/namespace/minimal-http.md)
+      - [form login](/security/preface/namespace/form-login.md)
 

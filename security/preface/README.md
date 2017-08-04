@@ -6,6 +6,8 @@
     - [Samples and Guides](/security/preface/samples.md)
     - [Java Configuration](/security/preface/java-config.md)
     - [Security Namespace Configuration](/security/preface/namespace/README.md)
+      - [A Minimal http Configuration](/security/preface/namespace/minimal-http.md)
+      - [form login](/security/preface/namespace/form-login.md)
 
 
 At the bottom level you'll need to deal with issues such as transport security and system identification, in order to mitigate man-in-the-middle attacks.
