@@ -176,6 +176,9 @@ form-login 的属性
 从 3.1 开始，可以配置多个 http 元素，也就是说可以对不同的资源使用完全不同的过滤器链。
 
 
+using the attribute filters="none" on an intercept-url element is incompatible with this change and is no longer supported in 3.1.
+
+
 对静态资源，不经过(bypass)过滤器链：
 ```xml
   <http pattern="/css/**" security="none" />
@@ -216,9 +219,12 @@ http.security="none" 和 intercept-url.access="IS_AUTHENTICATED_ANONYMOUSLY" 的
 
 
 属性：
-- logout-url - 登出的 url 。缺省是 /logout ，参见 LogoutFilter 第 77 行
-- logout-success-url - 登出后的 url 。默认是 form-login.login-page?logout 例如 "/login?logout"
+- logout-url - 登出的 url 。缺省是 /logout ，参见 LogoutFilter 第 76 行
+- logout-success-url - 登出后的 url 。默认是 form-login.login-page?logout 例如 "/login?logout" 参见 org.springframework.security.config.annotation.web.configurers.LogoutConfigurer 第 70 行
 - success-handler-ref
+
+
+完整例子参见 [Logout Handling](/security/preface/namespace/logout.md)
 
 
 ## Using other Authentication Providers
@@ -290,9 +296,12 @@ user-property 表示 UserDetails 对象的属性。
 推荐使用 Bcrypt 而不是简单的 Hash 算法(SHA/MD5?)
 
 
+完整例子参见 [Adding a Password Encoder](/security/preface/namespace/password-encoder.md)
+
+
 # Advanced Web Features
 ## Remember-Me Authentication
-参见 [[{{BASEPAGENAME}}/Remember-Me Authentication]]
+参见 [Remember-Me Authentication](/security/web/remember-me/README.md)
 
 
 ## Adding HTTP/HTTPS Channel Security
@@ -325,7 +334,7 @@ requires-channel 可用的值有：
 使用 HTTPS 可以防止 man-in-the-middle attacks
 
 
-## 会话管理
+## Session Management
 ### Detecting Timeouts
 如果用户提交了一个无效的(invalid) session ID ，可以配置 Spring Security redirect 到某个地址：
 ```xml
@@ -342,7 +351,10 @@ requires-channel 可用的值有：
 但是，这种解决办法不能保证每种 servlet container 都会起作用。
 
 
-如果 application 在 proxy server 之后，还要配置 proxy server 删除 session cookie ，例如配置 Apache HTTPD 的 mod_headers 。 TODO
+如果 application 在 proxy server 之后，还要配置 proxy server 删除 session cookie ，例如配置 Apache HTTPD 的 mod_headers 。 FIXME
+
+
+完整例子参见 [Detecting Timeouts](/security/preface/namespace/invalid-session-url.md)
 
 
 ### Concurrent Session Control
@@ -379,7 +391,10 @@ requires-channel 可用的值有：
 - 如果第二次登录不是交互式的，比如是通过 remember-me 登录的，则返回 401(unauthorized) 错误
 
 
-如果你为 form-login 自定义了 authentication filter ，则必须显式配置 concurrent session control support 。参见 [[{{BASEPAGENAME}}/Session Management]]
+如果你为 form-login 自定义了 authentication filter ，则必须显式配置 concurrent session control support 。
+
+
+完整例子参见 [Concurrent Session Control](/security/preface/namespace/concurrency-control.md)
 
 
 ### Session Fixation Attack Protection
@@ -393,7 +408,7 @@ Spring Security 为防止 Session fixation attack ，在每个用户登录时，
 - changeSessionId - 使用 Servlet container 提供的 session fixation protection (HttpServletRequest.changeSessionId()) ，这个方法从 Servlet 3.1 (Java EE 7) 起才可用。使用 Servlet container 3.1+ 时， Spring Security 使用它作为默认值。
 
 
-如果发生 session fixation protection ，会触发 application context 的 SessionFixationProtectionEvent 事件。如果使用 changeSessionId ，还会通知 javax.servlet.http.HttpSessionIdListener 监听器。参见 [[{{BASEPAGENAME}}/Session Management]]
+如果发生 session fixation protection ，会触发 application context 的 SessionFixationProtectionEvent 事件。如果使用 changeSessionId ，还会通知 javax.servlet.http.HttpSessionIdListener 监听器。
 
 
 ## OpenID Support
@@ -453,10 +468,10 @@ openid-attribute 的属性：
 可以有多个 attribute-exchange 元素，每个有不同的 identifier-matcher 属性。 identifier-matcher 属性是个正则表达式，与 user 的 OpenID identifier 匹配。参见  OpenID sample 。
 
 
+FIXME 例子
+
+
 ## Response Headers
-参见 [[{{BASEPAGENAME}}/Security HTTP Response Headers]]
-
-
 ## Adding in Your Own Filters
 可以
 - 添加自己的过滤器
@@ -464,7 +479,7 @@ openid-attribute 的属性：
 - 定制标准的 standard namespace filter(例如定制 UsernamePasswordAuthenticationFilter) ，使用不同于默认值的设置
 
 
-filters 的别名和顺序参见 org.springframework.security.config.http.SecurityFilters 。
+filters 的别名和顺序参见 org.springframework.security.config.http.SecurityFilters, 以及 HttpSecurityBeanDefinitionParser 第 166 行。
 
 
 在 3.0 之前的版本里，排序是在 filter 初始化之后进行的，从 3.0+ 之后，排序在 filter 初始化之前进行。
@@ -516,11 +531,12 @@ filters 的别名和顺序参见 org.springframework.security.config.http.Securi
 
 
 比 org.springframework.security.config.http.SecurityFilters 中少
-#WEB_ASYNC_MANAGER_FILTER - 在 CONCURRENT_SESSION_FILTER 之后
-#OPENID_FILTER - 在 FORM_LOGIN_FILTER 之后
-#LOGIN_PAGE_FILTER - 在 OPENID_FILTER 之后
-#DIGEST_AUTH_FILTER - 在 LOGIN_PAGE_FILTER 之后， BASIC_AUTH_FILTER 之前
-#REQUEST_CACHE_FILTER - 在 BASIC_AUTH_FILTER 之后
+- WEB_ASYNC_MANAGER_FILTER - 在 CONCURRENT_SESSION_FILTER 之后
+- CORS_FILTER - 在 HEADERS_FILTER 之后
+- OPENID_FILTER - 在 FORM_LOGIN_FILTER 之后
+- LOGIN_PAGE_FILTER - 在 OPENID_FILTER 之后
+- DIGEST_AUTH_FILTER - 在 LOGIN_PAGE_FILTER 之后， BASIC_AUTH_FILTER 之前
+- REQUEST_CACHE_FILTER - 在 BASIC_AUTH_FILTER 之后
 
 
 添加自定义的 filter ：
@@ -542,13 +558,12 @@ filters 的别名和顺序参见 org.springframework.security.config.http.Securi
 SecurityContextPersistenceFilter, ExceptionTranslationFilter, FilterSecurityInterceptor 由 http 元素创建，因此无法被替换。
 
 
-缺省情况下， http 元素还会自动创建 AnonymousAuthenticationFilter 和 SessionManagementFilter （如果没有禁用 session-fixation-protection ），这两个 filter 可以被 disable （替换？）。
+缺省情况下， http 元素还会自动创建 AnonymousAuthenticationFilter 和 SessionManagementFilter ，这两个 filter 可以被 disable
+- AnonymousAuthenticationFilter - 使用 anonymous.enabled="false"
+- SessionManagementFilter - 使用 session-management.session-fixation-protection="none"
 
 
 如果被替换的 filter 需要有 authentication entry point ，则还需要添加 entry point bean(AuthenticationEntryPoint) ，并设置 &lt;http> 元素的 entry-point-ref 属性。可以参考 CAS 的例子。
-
-
-;authentication entry point: 当没有认证的用户访问受保护资源时，认证过程被触发的地方。
 
 
 # Method Security
@@ -558,7 +573,7 @@ SecurityContextPersistenceFilter, ExceptionTranslationFilter, FilterSecurityInte
 有三种方式
 - JSR-250 annotation
 - Spring Security @Secured annotation
-- new expression-based annotations（from v3.0）
+- new expression-based annotations(from v3.0)
 
 
 注意： method-security 只会在与启用 method-security 在同一个 application context 的 bean 的方法上起作用。如果要 secure 非 spring bean 的对象的方法，需要使用 AspectJ

@@ -24,7 +24,7 @@ src/main/webapp/WEB-INF/web.xml
 ```
 
 
-# access="permitAll" 方式
+# access="permitAll" 方式 {#permitAll}
 src/main/resources/spring-security.xml
 ```xml
 <beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"
@@ -170,3 +170,85 @@ src/main/resources/spring-security.xml
 
 综上， security="none" 方式不如 access="permitAll" 方式。
 
+
+# form-login 属性
+If a form login isn't prompted by an attempt to access a protected resource, the default-target-url option comes into play. This is the URL the user will be taken to after successfully logging in, and defaults to "/". You can also configure things so that the user always ends up at this page (regardless of whether the login was "on-demand" or they explicitly chose to log in) by setting the always-use-default-target attribute to "true". This is useful if your application always requires that the user starts at a "home" page
+
+
+在 [access="permitAll" 方式](#permitAll)的基础上，添加 src/main/webapp/hello.html
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Index</title>
+</head>
+<body>Hello, World!
+</body>
+</html>
+```
+
+
+然后修改 src/main/resources/spring-security.xml
+```xml
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+  <http>
+    <intercept-url pattern="/login.jsp*" access="permitAll" />
+    <intercept-url pattern="/**" access="hasRole('USER')" />
+    <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?login_error=1"
+      default-target-url='/hello.html' />
+    <logout />
+  </http>
+
+  <authentication-manager>
+    <authentication-provider>
+      <user-service>
+        <user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
+        <user name="bob" password="bobspassword" authorities="ROLE_USER" />
+      </user-service>
+    </authentication-provider>
+  </authentication-manager>
+</beans:beans>
+```
+
+
+测试：
+- 浏览器访问 http://localhost:8080/demo-spring-security/ ，登入，进入 index.jsp
+- 注销
+- 再次登入，进入 hello.html
+- 访问 http://localhost:8080/demo-spring-security/index.jsp 注销
+- 访问 http://localhost:8080/demo-spring-security/login.jsp 登入，进入 hello.html
+
+
+再次修改 src/main/resources/spring-security.xml
+```xml
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+  <http>
+    <intercept-url pattern="/login.jsp*" access="permitAll" />
+    <intercept-url pattern="/**" access="hasRole('USER')" />
+    <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?login_error=1"
+      default-target-url='/hello.html' always-use-default-target='true' />
+    <logout />
+  </http>
+
+  <authentication-manager>
+    <authentication-provider>
+      <user-service>
+        <user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
+        <user name="bob" password="bobspassword" authorities="ROLE_USER" />
+      </user-service>
+    </authentication-provider>
+  </authentication-manager>
+</beans:beans>
+```
+
+
+测试：
+- 浏览器访问 http://localhost:8080/demo-spring-security/ ，登入，进入 hello.html
+- 访问 http://localhost:8080/demo-spring-security/index.jsp 注销
+- 访问 http://localhost:8080/demo-spring-security/login.jsp 登入，进入 hello.html
