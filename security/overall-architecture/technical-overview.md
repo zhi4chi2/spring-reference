@@ -114,7 +114,7 @@ Spring Security 中负责上述过程的类有：
 
 - ExceptionTranslationFilter - 捕捉 Spring Security 产生的异常（一般由 AbstractSecurityInterceptor 抛出），如果用户没有认证，运行 AuthenticationEntryPoint ，如果已经认证但没有足够的权限，返回 403 代码。
 - AuthenticationEntryPoint - 负责验证过程中的第 3 步，每个 authentication system 有自己的 AuthenticationEntryPoint 实现
-- Authentication Mechanism - 例如 web form-login processing filter 。收集认证信息（用户名、密码），创建 request Authentication 对象，传入 AuthenticationManager ，如果认证成功得到返回的 fully-populated Authentication 对象，放入 SecurityContextHolder ，转向原来请求的 URL ；如果认证失败，转向重新认证。
+- Authentication Mechanism - 例如 web form-login processing filter(UsernamePasswordAuthenticationFilter) 。收集认证信息（用户名、密码），创建 request Authentication 对象，传入 AuthenticationManager ，如果认证成功得到返回的 fully-populated Authentication 对象，放入 SecurityContextHolder ，转向原来请求的 URL ；如果认证失败，转向重新认证。
 
 
 ## Storing the SecurityContext between requests
