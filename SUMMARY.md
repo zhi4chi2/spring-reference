@@ -40,3 +40,4 @@
     - [Sample Applications](/security/preface/sample-apps.md)
     - Spring Security Community
   - [Architecture and Implementation](/security/overall-architecture/README.md)
+    - [Technical Overview](/security/overall-architecture/technical-overview.md)
