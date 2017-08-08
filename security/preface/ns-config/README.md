@@ -301,7 +301,7 @@ user-property 表示 UserDetails 对象的属性。
 
 # Advanced Web Features
 ## Remember-Me Authentication
-参见 [Remember-Me Authentication](/security/web/remember-me/README.md)
+参见 [Remember-Me Authentication](/security/web-app-security/remember-me/README.md)
 
 
 ## Adding HTTP/HTTPS Channel Security
@@ -485,52 +485,7 @@ filters 的别名和顺序参见 org.springframework.security.config.http.Securi
 在 3.0 之前的版本里，排序是在 filter 初始化之后进行的，从 3.0+ 之后，排序在 filter 初始化之前进行。
 
 
-{|class="wikitable"
-|+标准过滤器的别名和顺序
-|-
-!Alias!!Filter Class!!Namespace Element or Attribute
-|-
-|CHANNEL_FILTER||ChannelProcessingFilter||http/intercept-url@requires-channel
-|-
-|SECURITY_CONTEXT_FILTER||SecurityContextPersistenceFilter||http
-|-
-|CONCURRENT_SESSION_FILTER||ConcurrentSessionFilter ||session-management/concurrency-control
-|-
-|HEADERS_FILTER||HeaderWriterFilter||http/headers
-|-
-|CSRF_FILTER||CsrfFilter||http/csrf
-|-
-|LOGOUT_FILTER||LogoutFilter||http/logout
-|-
-|X509_FILTER ||X509AuthenticationFilter||http/x509
-|-
-|PRE_AUTH_FILTER ||AstractPreAuthenticatedProcessingFilter 子类||N/A
-|-
-|CAS_FILTER ||CasAuthenticationFilter||N/A
-|-
-|FORM_LOGIN_FILTER||UsernamePasswordAuthenticationFilter||http/form-login
-|-
-|BASIC_AUTH_FILTER||BasicAuthenticationFilter||http/http-basic
-|-
-|SERVLET_API_SUPPORT_FILTER||SecurityContextHolderAwareRequestFilter||http/@servlet-api-provision
-|-
-|JAAS_API_SUPPORT_FILTER||JaasApiIntegrationFilter||http/@jaas-api-provision
-|-
-|REMEMBER_ME_FILTER||RememberMeAuthenticationFilter||http/remember-me
-|-
-|ANONYMOUS_FILTER||AnonymousAuthenticationFilter||http/anonymous
-|-
-|SESSION_MANAGEMENT_FILTER||SessionManagementFilter||session-management
-|-
-|EXCEPTION_TRANSLATION_FILTER||ExceptionTranslationFilter||http
-|-
-|FILTER_SECURITY_INTERCEPTOR||FilterSecurityInterceptor||http
-|-
-|SWITCH_USER_FILTER||SwitchUserFilter||N/A
-|}
-
-
-比 org.springframework.security.config.http.SecurityFilters 中少
+文档中的过滤器表比 org.springframework.security.config.http.SecurityFilters 中少
 - WEB_ASYNC_MANAGER_FILTER - 在 CONCURRENT_SESSION_FILTER 之后
 - CORS_FILTER - 在 HEADERS_FILTER 之后
 - OPENID_FILTER - 在 FORM_LOGIN_FILTER 之后
