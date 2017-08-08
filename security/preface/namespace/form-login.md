@@ -24,7 +24,7 @@ src/main/webapp/WEB-INF/web.xml
 ```
 
 
-# access="permitAll" 方式 {#permitAll}
+# permitAll
 src/main/resources/spring-security.xml
 ```xml
 <beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"

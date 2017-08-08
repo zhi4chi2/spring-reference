@@ -14,6 +14,8 @@
       - [Adding a Password Encoder](/security/preface/namespace/password-encoder.md)
       - [Detecting Timeouts](/security/preface/namespace/invalid-session-url.md)
       - [Concurrent Session Control](/security/preface/namespace/concurrency-control.md)
+    - [Sample Applications](/security/preface/sample.md)
+  - [Architecture and Implementation](/security/architecture/README.md)
 
 
 # 术语
