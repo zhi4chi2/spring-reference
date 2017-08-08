@@ -2,19 +2,20 @@
   - [Preface](/security/preface/README.md)
     - Getting Started
     - [Introduction](/security/preface/introduction.md)
-    - [What's New in Spring Security 4.2](/security/preface/whats-new.md)
+    - [What's New in Spring Security 4.2](/security/preface/new.md)
     - [Samples and Guides](/security/preface/samples.md)
-    - [Java Configuration](/security/preface/java-config.md)
-    - [Security Namespace Configuration](/security/preface/namespace/README.md)
-      - [A Minimal http Configuration](/security/preface/namespace/minimal-http.md)
-      - [form login](/security/preface/namespace/form-login.md)
-      - [basic login](/security/preface/namespace/basic-login.md)
-      - [logout](/security/preface/namespace/logout.md)
-      - [Using other Authentication Providers](/security/preface/namespace/authentication-provider.md)
-      - [Adding a Password Encoder](/security/preface/namespace/password-encoder.md)
-      - [Detecting Timeouts](/security/preface/namespace/invalid-session-url.md)
-      - [Concurrent Session Control](/security/preface/namespace/concurrency-control.md)
-    - [Sample Applications](/security/preface/sample.md)
+    - [Java Configuration](/security/preface/jc.md)
+    - [Security Namespace Configuration](/security/preface/ns-config/README.md)
+      - [A Minimal http Configuration](/security/preface/ns-config/minimal-http.md)
+      - [form login](/security/preface/ns-config/form-login.md)
+      - [basic login](/security/preface/ns-config/basic-login.md)
+      - [logout](/security/preface/ns-config/logout.md)
+      - [Using other Authentication Providers](/security/preface/ns-config/authentication-provider.md)
+      - [Adding a Password Encoder](/security/preface/ns-config/password-encoder.md)
+      - [Detecting Timeouts](/security/preface/ns-config/invalid-session-url.md)
+      - [Concurrent Session Control](/security/preface/ns-config/concurrency-control.md)
+    - [Sample Applications](/security/preface/sample-apps.md)
+    - Spring Security Community
 
 
 At the bottom level you'll need to deal with issues such as transport security and system identification, in order to mitigate man-in-the-middle attacks.
