@@ -45,4 +45,5 @@
   - [Testing](/security/test/README.md)
   - [Web Application Security](/security/web-app-security/README.md)
     - [The Security Filter Chain](/security/web-app-security/security-filter-chain.md)
+    - [Core Security Filters](/security/web-app-security/core-web-filters.md)
     - [Remember-Me Authentication](/security/web-app-security/remember-me.md)
