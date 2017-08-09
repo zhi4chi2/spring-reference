@@ -301,7 +301,7 @@ user-property 表示 UserDetails 对象的属性。
 
 # Advanced Web Features
 ## Remember-Me Authentication
-参见 [Remember-Me Authentication](/security/web-app-security/remember-me/README.md)
+参见 [Remember-Me Authentication](/security/web-app-security/remember-me.md)
 
 
 ## Adding HTTP/HTTPS Channel Security

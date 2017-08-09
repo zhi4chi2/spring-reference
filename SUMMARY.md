@@ -44,4 +44,5 @@
     - [Core Services](/security/overall-architecture/core-services.md)
   - [Testing](/security/test/README.md)
   - [Web Application Security](/security/web-app-security/README.md)
-    - [Web Application Security](/security/web-app-security/security-filter-chain.md)
+    - [The Security Filter Chain](/security/web-app-security/security-filter-chain.md)
+    - [Remember-Me Authentication](/security/web-app-security/remember-me.md)
