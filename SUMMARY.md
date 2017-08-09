@@ -55,3 +55,4 @@
 ### Spring Data
 - [Spring Data](/data/README.md)
   - [JPA](/data/jpa/README.md)
+  - [Spring Data 实战](/data/book/README.md)
