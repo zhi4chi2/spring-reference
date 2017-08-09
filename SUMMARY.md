@@ -50,3 +50,8 @@
     - [Remember-Me Authentication](/security/web-app-security/remember-me.md)
   - [Authorization](/security/authorization/README.md)
     - [Authorization Architecture](/security/authorization/authz-arch/README.md)
+
+
+### Spring Data
+- [Spring Data](/data/README.md)
+  - [JPA](/data/jpa/README.md)
