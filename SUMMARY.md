@@ -46,4 +46,7 @@
   - [Web Application Security](/security/web-app-security/README.md)
     - [The Security Filter Chain](/security/web-app-security/security-filter-chain.md)
     - [Core Security Filters](/security/web-app-security/core-web-filters.md)
+    - [Servlet API integration](/security/web-app-security/servletapi.md)
     - [Remember-Me Authentication](/security/web-app-security/remember-me.md)
+  - [Authorization](/security/authorization/README.md)
+    - [Authorization Architecture](/security/authorization/authz-arch/README.md)
