@@ -116,13 +116,13 @@ intercept-url.access 是逗号分隔的角色的列表。如果用户有其中�
 
 - &lt;authentication-manager> 元素创建了一个 ProviderManager 对象。
 - &lt;authentication-provider> 元素创建了一个 DaoAuthenticationProvider bean 。如果有多个 &lt;authentication-provider> 元素表示不同的 authentication sources ，则会依次使用。
-- &lt;user-service> 元素创建了 InMemoryDaoImpl 对象。
+- &lt;user-service> 元素创建了 InMemoryUserDetailsManager 对象。
 
 
 还可以使用 user-service 元素的 properties 属性从 properties 文件中加载用户信息。
 
 
-完整例子参见 [A Minimal http Configuration](/security/preface/namespace/minimal-http.md)
+完整例子参见 [A Minimal http Configuration](/security/preface/ns-config/minimal-http.md)
 
 
 ## Form and Basic Login Options
@@ -158,7 +158,7 @@ intercept-url.access 是逗号分隔的角色的列表。如果用户有其中�
 可以指定自己的登录页面：
 ```xml
   <http>
-    <intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+    <intercept-url pattern="/login.jsp*" access="permitAll" />
     <intercept-url pattern="/**" access="hasRole('USER')" />
     <form-login login-page="/login.jsp" />
     <logout />
@@ -193,7 +193,7 @@ http.security="none" 和 intercept-url.access="IS_AUTHENTICATED_ANONYMOUSLY" 的
 - intercept-url.access="IS_AUTHENTICATED_ANONYMOUSLY" 则可以
 
 
-完整例子参见 [form login](/security/preface/namespace/form-login.md)
+完整例子参见 [form login](/security/preface/ns-config/form-login.md)
 
 
 使用 basic 认证
@@ -206,7 +206,7 @@ http.security="none" 和 intercept-url.access="IS_AUTHENTICATED_ANONYMOUSLY" 的
 此时将优先使用 basic 认证。文档说这种方式时依然可以使用 form-login 但测试好像不可以。
 
 
-完整例子参见 [basic login](/security/preface/namespace/basic-login.md)
+完整例子参见 [basic login](/security/preface/ns-config/basic-login.md)
 
 
 ## Logout Handling
@@ -219,12 +219,12 @@ http.security="none" 和 intercept-url.access="IS_AUTHENTICATED_ANONYMOUSLY" 的
 
 
 属性：
-- logout-url - 登出的 url 。缺省是 /logout ，参见 LogoutFilter 第 76 行
-- logout-success-url - 登出后的 url 。默认是 form-login.login-page?logout 例如 "/login?logout" 参见 org.springframework.security.config.annotation.web.configurers.LogoutConfigurer 第 70 行
+- logout-url - 登出的 url 。缺省是 /logout & method="POST" ，参见 LogoutBeanDefinitionParser 第 42, 133 行。
+- logout-success-url - 登出后的 url 。默认是 form-login.login-page?logout 例如 "/login?logout" 参见 LogoutBeanDefinitionParser 第 53 行
 - success-handler-ref
 
 
-完整例子参见 [Logout Handling](/security/preface/namespace/logout.md)
+完整例子参见 [Logout Handling](/security/preface/ns-config/logout.md)
 
 
 ## Using other Authentication Providers
@@ -237,7 +237,7 @@ http.security="none" 和 intercept-url.access="IS_AUTHENTICATED_ANONYMOUSLY" 的
 UserDetailsService 的实现可以从数据库或者其他地方(例如 LDAP)读取验证信息。
 
 
-使用标准的 user 表（ #db_schema_users_authorities ）的 UserDetailsService 如下：
+使用标准的 user 表的 UserDetailsService 如下：
 ```xml
   <authentication-manager>
     <authentication-provider user-service-ref='myUserDetailsService' />
@@ -296,7 +296,7 @@ user-property 表示 UserDetails 对象的属性。
 推荐使用 Bcrypt 而不是简单的 Hash 算法(SHA/MD5?)
 
 
-完整例子参见 [Adding a Password Encoder](/security/preface/namespace/password-encoder.md)
+完整例子参见 [Adding a Password Encoder](/security/preface/ns-config/password-encoder.md)
 
 
 # Advanced Web Features
@@ -354,7 +354,7 @@ requires-channel 可用的值有：
 如果 application 在 proxy server 之后，还要配置 proxy server 删除 session cookie ，例如配置 Apache HTTPD 的 mod_headers 。 FIXME
 
 
-完整例子参见 [Detecting Timeouts](/security/preface/namespace/invalid-session-url.md)
+完整例子参见 [Detecting Timeouts](/security/preface/ns-config/invalid-session-url.md)
 
 
 ### Concurrent Session Control
@@ -394,11 +394,11 @@ requires-channel 可用的值有：
 如果你为 form-login 自定义了 authentication filter ，则必须显式配置 concurrent session control support 。
 
 
-完整例子参见 [Concurrent Session Control](/security/preface/namespace/concurrency-control.md)
+完整例子参见 [Concurrent Session Control](/security/preface/ns-config/concurrency-control.md)
 
 
 ### Session Fixation Attack Protection
-;Session fixation attacks: 黑客首先访问站点创建一个 session ，然后把带有 session 的链接发给用户，诱使他用此 session 登录。
+Session fixation attacks - 黑客首先访问站点创建一个 session ，然后把带有 session 的链接发给用户，诱使他用此 session 登录。
 
 
 Spring Security 为防止 Session fixation attack ，在每个用户登录时，创建一个新的 session 或者改变 session ID 。如果不希望如此，可以改变 session-management 元素的 session-fixation-protection 属性：

@@ -35,25 +35,25 @@ FIXME
 
 
 ## Project Modules
-*spring-security-core.jar - core authentication and access-contol classes and interfaces, remoting support and basic provisioning APIs. Supports standalone applications, remote clients, method (service layer) security and JDBC user provisioning(使用 JDBC 取得用户信息).
-*spring-security-remoting.jar - 与 Spring Remoting 集成。当使用 Spring Remoting 编写 remote client 时使用
-*spring-security-web.jar - filters and related web-security infrastructure code, 基于 URL 的访问控制，基于 web 的认证
-*spring-security-config.jar - 解析 security 命名空间，其中的类不应该在 application 中直接使用
-*spring-security-ldap.jar - LDAP 认证和管理 LDAP 条目
-*spring-security-acl.jar - domain object ACL
-*spring-security-cas.jar - 使用 CAS 认证
-*spring-security-openid.jar - OpenID 认证，通过外部 OpenID server 认证用户。需要 OpenID4Java
-*spring-security-test.jar - Support for testing with Spring Security, 4.0 新增
+- spring-security-core.jar - core authentication and access-contol classes and interfaces, remoting support and basic provisioning APIs. Supports standalone applications, remote clients, method (service layer) security and JDBC user provisioning(使用 JDBC 取得用户信息).
+- spring-security-remoting.jar - 与 Spring Remoting 集成。当使用 Spring Remoting 编写 remote client 时使用
+- spring-security-web.jar - filters and related web-security infrastructure code, 基于 URL 的访问控制，基于 web 的认证
+- spring-security-config.jar - 解析 security 命名空间，其中的类不应该在 application 中直接使用
+- spring-security-ldap.jar - LDAP 认证和管理 LDAP 条目
+- spring-security-acl.jar - domain object ACL
+- spring-security-cas.jar - 使用 CAS 认证
+- spring-security-openid.jar - OpenID 认证，通过外部 OpenID server 认证用户。需要 OpenID4Java
+- spring-security-test.jar - Support for testing with Spring Security, 4.0 新增
 
 
 Maven repo 中的其它 artifact
-*spring-security-crypto
-*spring-security-taglibs
-*spring-security-aspects
-*spring-security-data - 4.0 新增
-*spring-security-messaging - 4.0 新增
-*spring-security-samples-javaconfig-messages - 不在 BOM 中， 4.1.0.RELEASE 新增
-*spring-security-samples-messages-jc - 不在 BOM 中，最新版 4.0.4.RELEASE
+- spring-security-crypto
+- spring-security-taglibs
+- spring-security-aspects
+- spring-security-data - 4.0 新增
+- spring-security-messaging - 4.0 新增
+- spring-security-samples-javaconfig-messages - 不在 BOM 中， 4.1.0.RELEASE 新增
+- spring-security-samples-messages-jc - 不在 BOM 中，最新版 4.0.4.RELEASE
 
 
 ## Checking out the Source
@@ -63,5 +63,5 @@ git clone https://github.com/spring-projects/spring-security.git
 ```
 
 
-samples 在 https://github.com/spring-projects/spring-security/tree/master/samples
+samples 在 https://github.com/spring-projects/spring-security/tree/4.2.3.RELEASE/samples
 

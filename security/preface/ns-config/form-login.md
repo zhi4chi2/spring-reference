@@ -175,7 +175,7 @@ src/main/resources/spring-security.xml
 If a form login isn't prompted by an attempt to access a protected resource, the default-target-url option comes into play. This is the URL the user will be taken to after successfully logging in, and defaults to "/". You can also configure things so that the user always ends up at this page (regardless of whether the login was "on-demand" or they explicitly chose to log in) by setting the always-use-default-target attribute to "true". This is useful if your application always requires that the user starts at a "home" page
 
 
-在 [access="permitAll" 方式](#permitAll)的基础上，添加 src/main/webapp/hello.html
+在 [access="permitAll" 方式](#permitall)的基础上，添加 src/main/webapp/hello.html
 ```html
 <!DOCTYPE html>
 <html>

@@ -42,6 +42,6 @@ if you are building a web application, you should be aware of the many potential
 
 
 http://www.owasp.org/ 列出 web application 易受攻击的地方，比如：
-*cross-site scripting
-*request-forgery
-*session-hijacking
+- cross-site scripting
+- request-forgery
+- session-hijacking

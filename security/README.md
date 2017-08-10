@@ -45,7 +45,7 @@
 
 
 预留的 bean
-- springSecurityFilterChain
+- springSecurityFilterChain - org.springframework.security.config.BeanIds.SPRING_SECURITY_FILTER_CHAIN
 
 
 # Reference
