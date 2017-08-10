@@ -16,18 +16,4 @@
     - [Registering a LoadTimeWeaver](/framework/beans/14.md)
     - [Additional Capabilities of the ApplicationContext](/framework/beans/15.md)
     - [The BeanFactory](/framework/beans/16.md)
-- Data Access
-  - [Data access with JDBC](/framework/jdbc/README.md)
-    - [Introduction to Spring Framework JDBC](/framework/jdbc/01.md)
-    - [Using the JDBC core classes to control basic JDBC processing and error handling](/framework/jdbc/02/README.md)
-      - [JdbcTemplate](/framework/jdbc/02/01.md)
-      - [NamedParameterJdbcTemplate](/framework/jdbc/02/02.md)
 
-
-# 术语
-
-
-# Reference
-- http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/ - html 版本
-- http://repo.spring.io/release/org/springframework/spring/4.3.9.RELEASE/spring-framework-4.3.9.RELEASE-docs.zip 中有 pdf/epub 版本
-- https://spring.io/guides

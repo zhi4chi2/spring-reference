@@ -1,5 +1,4 @@
-- [Spring Data](/data/README.md)
-  - [Spring Data 实战](/data/book/README.md)
+- [Spring Data 实战](/data/book/README.md)
 
 
 # Reference
