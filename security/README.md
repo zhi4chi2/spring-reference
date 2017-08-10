@@ -27,6 +27,8 @@
     - [Remember-Me Authentication](/security/web-app-security/remember-me.md)
   - [Authorization](/security/authorization/README.md)
     - [Authorization Architecture](/security/authorization/authz-arch/README.md)
+  - [Mine](/security/mine/README.md)
+    - [输出用到的 beans](/security/mine/show-used-beans.md)
 
 
 # 术语
@@ -35,8 +37,12 @@
 
 
 预留的 URL
-- /login
-- /logout
+- AbstractAuthenticationProcessingFilter.requiresAuthenticationRequestMatcher - 默认 /login & method="POST" 参见 AuthenticationConfigBuilder 第 209 行。其中 method="POST" 不可设置。 /login 可以通过 form-login.login-processing-url 设置，参见 FormLoginBeanDefinitionParser 第 175 行
+  - UsernamePasswordAuthenticationFilter.usernameParameter - 默认 username 参见 UsernamePasswordAuthenticationFilter 第 54 行。可以通过 form-login.username-parameter 设置，参见 FormLoginBeanDefinitionParser 第 137 行
+  - UsernamePasswordAuthenticationFilter.passwordParameter - 默认 password 参见 UsernamePasswordAuthenticationFilter 第 55 行。可以通过 form-login.password-parameter 设置，参见 FormLoginBeanDefinitionParser 第 141 行
+  - AbstractRememberMeServices.parameter - 默认 remember-me 参见 AbstractRememberMeServices 第 80 行。可以通过 remember-me.remember-me-parameter 设置，参见 RememberMeBeanDefinitionParser 第 161 行
+- DefaultLoginPageGeneratingFilter.loginPageUrl - 默认 /login & method="GET" 参见 DefaultLoginPageGeneratingFilter 第 82, 282 行。在 AuthenticationConfigBuilder 第 541 行创建 DefaultLoginPageGeneratingFilter 时没有设置 loginPageUrl ，所以 /login & method="GET" 都是不可以设置的。
+- LogoutFilter.logoutRequestMatcher - 默认 /logout & method="POST" 参见 LogoutBeanDefinitionParser 第 42, 133 行。其中 method 是由 csrf 决定的，不可设置。 /logout 可以通过 logout.logout-url 设置，参见 LogoutBeanDefinitionParser 第 87 行。
 
 
 预留的 bean

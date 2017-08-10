@@ -50,6 +50,8 @@
     - [Remember-Me Authentication](/security/web-app-security/remember-me.md)
   - [Authorization](/security/authorization/README.md)
     - [Authorization Architecture](/security/authorization/authz-arch/README.md)
+  - [Mine](/security/mine/README.md)
+    - [输出用到的 beans](/security/mine/show-used-beans.md)
 
 
 ### Spring Data
