@@ -73,3 +73,14 @@
 
 
 ## [Spring Boot](/boot/README.md)
+
+
+## API
+- org.springframework.security.web.authentication
+  - [org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter](/api/org/springframework/security/web/authentication/UsernamePasswordAuthenticationFilter.md)
+- org.springframework.security.web.authentication.logout
+  - [org.springframework.security.web.authentication.logout.LogoutFilter](/api/org/springframework/security/web/authentication/logout/LogoutFilter.md)
+- org.springframework.security.web.authentication.rememberme
+  - [org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices](/api/org/springframework/security/web/authentication/rememberme/TokenBasedRememberMeServices.md)
+- org.springframework.security.web.authentication.ui
+  - [org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter](/api/org/springframework/security/web/authentication/ui/DefaultLoginPageGeneratingFilter.md)
