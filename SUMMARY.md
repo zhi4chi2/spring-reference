@@ -35,13 +35,9 @@
 
 
 ## [Spring Security](/security/README.md)
-- [Preface](/security/preface/README.md)
-  - Getting Started
-  - [Introduction](/security/preface/introduction.md)
-  - [What's New in Spring Security 4.2](/security/preface/new.md)
-  - [Samples and Guides](/security/preface/samples.md)
-  - [Java Configuration](/security/preface/jc.md)
-  - [Security Namespace Configuration](/security/preface/ns-config/README.md)
+- Preface
+  - Java Configuration
+  - Security Namespace Configuration
     - [A Minimal http Configuration](/security/preface/ns-config/minimal-http.md)
     - [form login](/security/preface/ns-config/form-login.md)
     - [basic login](/security/preface/ns-config/basic-login.md)
@@ -50,20 +46,9 @@
     - [Adding a Password Encoder](/security/preface/ns-config/password-encoder.md)
     - [Detecting Timeouts](/security/preface/ns-config/invalid-session-url.md)
     - [Concurrent Session Control](/security/preface/ns-config/concurrency-control.md)
-  - [Sample Applications](/security/preface/sample-apps.md)
-  - Spring Security Community
-- [Architecture and Implementation](/security/overall-architecture/README.md)
-  - [Technical Overview](/security/overall-architecture/technical-overview.md)
-  - [Core Services](/security/overall-architecture/core-services.md)
-- [Testing](/security/test/README.md)
-- [Web Application Security](/security/web-app-security/README.md)
-  - [The Security Filter Chain](/security/web-app-security/security-filter-chain.md)
-  - [Core Security Filters](/security/web-app-security/core-web-filters.md)
-  - [Servlet API integration](/security/web-app-security/servletapi.md)
-  - [Remember-Me Authentication](/security/web-app-security/remember-me.md)
-- [Authorization](/security/authorization/README.md)
-  - [Authorization Architecture](/security/authorization/authz-arch/README.md)
-- [Mine](/security/mine/README.md)
+- Testing
+- Web Application Security
+- Mine
   - [输出用到的 beans](/security/mine/show-used-beans.md)
 
 

@@ -1,35 +1,3 @@
-- [Preface](/security/preface/README.md)
-  - Getting Started
-  - [Introduction](/security/preface/introduction.md)
-  - [What's New in Spring Security 4.2](/security/preface/new.md)
-  - [Samples and Guides](/security/preface/samples.md)
-  - [Java Configuration](/security/preface/jc.md)
-  - [Security Namespace Configuration](/security/preface/ns-config/README.md)
-    - [A Minimal http Configuration](/security/preface/ns-config/minimal-http.md)
-    - [form login](/security/preface/ns-config/form-login.md)
-    - [basic login](/security/preface/ns-config/basic-login.md)
-    - [logout](/security/preface/ns-config/logout.md)
-    - [Using other Authentication Providers](/security/preface/ns-config/authentication-provider.md)
-    - [Adding a Password Encoder](/security/preface/ns-config/password-encoder.md)
-    - [Detecting Timeouts](/security/preface/ns-config/invalid-session-url.md)
-    - [Concurrent Session Control](/security/preface/ns-config/concurrency-control.md)
-  - [Sample Applications](/security/preface/sample-apps.md)
-  - Spring Security Community
-- [Architecture and Implementation](/security/overall-architecture/README.md)
-  - [Technical Overview](/security/overall-architecture/technical-overview.md)
-  - [Core Services](/security/overall-architecture/core-services.md)
-- [Testing](/security/test/README.md)
-- [Web Application Security](/security/web-app-security/README.md)
-  - [The Security Filter Chain](/security/web-app-security/security-filter-chain.md)
-  - [Core Security Filters](/security/web-app-security/core-web-filters.md)
-  - [Servlet API integration](/security/web-app-security/servletapi.md)
-  - [Remember-Me Authentication](/security/web-app-security/remember-me.md)
-- [Authorization](/security/authorization/README.md)
-  - [Authorization Architecture](/security/authorization/authz-arch/README.md)
-- [Mine](/security/mine/README.md)
-  - [输出用到的 beans](/security/mine/show-used-beans.md)
-
-
 # 术语
 - principal - generally means a user, device or some other system which can perform an action in your application
 - authentication entry point - 当没有认证的用户访问受保护资源时，认证过程被触发的地方。
@@ -46,6 +14,31 @@
 
 预留的 bean
 - springSecurityFilterChain - org.springframework.security.config.BeanIds.SPRING_SECURITY_FILTER_CHAIN
+
+
+# Modules
+- spring-security-core.jar - core authentication and access-contol classes and interfaces, remoting support and basic provisioning APIs. Supports standalone applications, remote clients, method (service layer) security and JDBC user provisioning(使用 JDBC 取得用户信息).
+- spring-security-remoting.jar - 与 Spring Remoting 集成。当使用 Spring Remoting 编写 remote client 时使用
+- spring-security-web.jar - filters and related web-security infrastructure code, 基于 URL 的访问控制，基于 web 的认证
+- spring-security-config.jar - 解析 security 命名空间，其中的类不应该在 application 中直接使用
+- spring-security-ldap.jar - LDAP 认证和管理 LDAP 条目
+- spring-security-acl.jar - domain object ACL
+- spring-security-cas.jar - 使用 CAS 认证
+- spring-security-openid.jar - OpenID 认证，通过外部 OpenID server 认证用户。需要 OpenID4Java
+- spring-security-test.jar - Support for testing with Spring Security, 4.0 新增
+
+
+Maven repo 中的其它 artifact
+- spring-security-crypto
+- spring-security-taglibs
+- spring-security-aspects
+- spring-security-data - 4.0 新增
+- spring-security-messaging - 4.0 新增
+- spring-security-samples-javaconfig-messages - 不在 BOM 中， 4.1.0.RELEASE 新增
+- spring-security-samples-messages-jc - 不在 BOM 中，最新版 4.0.4.RELEASE
+
+
+# 攻击保护
 
 
 # Reference
