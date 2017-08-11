@@ -1,9 +1,22 @@
 # 术语
 - principal - generally means a user, device or some other system which can perform an action in your application
-- authentication entry point - 当没有认证的用户访问受保护资源时，认证过程被触发的地方。
+- authentication entry point - where the authentication process is triggered by an attempt by an unauthenticated user to access to a secured resource
+- UserDetails - represents a principal, but in an extensible and application-specific way. adapter between your own user database and what Spring Security needs
+- GrantedAuthority - an authority that is granted to the principal. application-wide permissions. not specific to a given domain object.
+- authentication mechanism - e.g. form-base login(UsernamePasswordAuthenticationFilter)
+- secure object - refer to any object that can have security (such as an authorization decision) applied to it. The most common examples are method invocations(MethodInvocation) and web requests(FilterInvocation).
+- configuration attributes(ConfigAttribute)/security metadata attributes - may be simple role names or have more complex meaning, will be entered as annotations on secured methods or as access attributes on secured URLs.
 
 
-预留的 URL
+authentication mechanism
+- collecting authentication details from a user agent (usually a web browser)
+- an Authentication "request" object is built and then presented to the AuthenticationManager.
+  - receives back the fully-populated Authentication object, put the Authentication into the SecurityContextHolder, and cause the original request to be retried,
+  - If the AuthenticationManager rejected the request, the authentication mechanism will ask the user agent to retry.
+
+
+# Reserved
+保留的 URL
 - AbstractAuthenticationProcessingFilter.requiresAuthenticationRequestMatcher - 默认 /login & method="POST" 参见 AuthenticationConfigBuilder 第 209 行。其中 method="POST" 不可设置。 /login 可以通过 form-login.login-processing-url 设置，参见 FormLoginBeanDefinitionParser 第 175 行
   - UsernamePasswordAuthenticationFilter.usernameParameter - 默认 username 参见 UsernamePasswordAuthenticationFilter 第 54 行。可以通过 form-login.username-parameter 设置，参见 FormLoginBeanDefinitionParser 第 137 行
   - UsernamePasswordAuthenticationFilter.passwordParameter - 默认 password 参见 UsernamePasswordAuthenticationFilter 第 55 行。可以通过 form-login.password-parameter 设置，参见 FormLoginBeanDefinitionParser 第 141 行
@@ -12,8 +25,8 @@
 - LogoutFilter.logoutRequestMatcher - 默认 /logout & method="POST" 参见 LogoutBeanDefinitionParser 第 42, 133 行。其中 method 是由 csrf 决定的，不可设置。 /logout 可以通过 logout.logout-url 设置，参见 LogoutBeanDefinitionParser 第 87 行。
 
 
-预留的 bean
-- springSecurityFilterChain - org.springframework.security.config.BeanIds.SPRING_SECURITY_FILTER_CHAIN
+保留的 bean name
+- springSecurityFilterChain - org.springframework.security.config.BeanIds.SPRING\_SECURITY\_FILTER\_CHAIN
 
 
 # Modules
@@ -40,10 +53,15 @@ Maven repo 中的其它 artifact(不在 BOM 中)
 - spring-security-samples-javaconfig-messages - 4.1.0.RELEASE 新增， 4.0.4.RELEASE 之前叫 spring-security-samples-messages-jc
 
 
-# 攻击保护
+# 攻击及保护
+- cross-site scripting
+- request-forgery
+- session-hijacking
+- man-in-the-middle attacks - HTTPS
+- session fixation attacks - `<session-management>.session-fixation-protection`
 
 
-# demo
+# 测试项目
 pom.xml
 ```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

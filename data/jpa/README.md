@@ -1,1 +1,0 @@
-- [JPA](/data/jpa/README.md)

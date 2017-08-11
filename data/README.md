@@ -1,10 +1,8 @@
-- [JPA](/data/jpa/README.md)
-- [Spring Data 实战](/data/book/README.md)
-
-
+# 术语
 releasetrain 即 BOM
 
 
+# modules
 releasetrain 的版本使用字符串，这是因为 modules 之间的版本不一致。 Spring Data is an umbrella project consisting of independent projects with, in principle, different release cadences. 
 
 

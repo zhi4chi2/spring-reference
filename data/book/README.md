@@ -1,4 +1,3 @@
-- [Spring Data 实战](/data/book/README.md)
 
 
 # Reference
