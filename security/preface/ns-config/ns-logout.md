@@ -1,29 +1,3 @@
-src/main/webapp/WEB-INF/web.xml
-```xml
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
-  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID"
-  version="2.5">
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath*:spring-*.xml</param-value>
-  </context-param>
-
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-
-  <filter>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-</web-app>
-```
-
-
 src/main/resources/spring-security.xml
 ```xml
 <beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"
@@ -105,7 +79,7 @@ src/main/webapp/index.jsp
 </head>
 <body>
   <form action="<c:url value='/logout' />" method="post">
-    <input type="submit" value="Logoff" /> (also clears any remember-me cookie)
+    <input type="submit" value="Logoff" />
     <security:csrfInput />
   </form>
 </body>
@@ -115,8 +89,10 @@ src/main/webapp/index.jsp
 
 测试：
 - 浏览器访问 http://localhost:8080/demo-spring-security/ ，登入，进入 /
-- 注销，显示 http://localhost:8080/demo-spring-security/login.jsp?logout
-- 直接访问 http://localhost:8080/demo-spring-security/logout 需要先登录，登录后却显示 404 ，在地址栏输入 http://localhost:8080/demo-spring-security/index.jsp 可以显示，证明已经登录了，原因可能是 logout 需要用 POST 方式提交，而不能是 GET 。
+- 点 Logoff 注销，显示 http://localhost:8080/demo-spring-security/login.jsp?logout
+
+
+注意，不能直接访问 http://localhost:8080/demo-spring-security/logout 注销，因为 logout 需要用 POST 方式提交，而不能是 GET 。
 
 
 如果将 spring-security.xml 改为
@@ -145,5 +121,5 @@ src/main/webapp/index.jsp
 
 测试：
 - 浏览器访问 http://localhost:8080/demo-spring-security/ ，登入，进入 /
-- 点注销，地址栏显示 http://localhost:8080/demo-spring-security/login?logout 并且页面显示 404 ，在地址栏输入 http://localhost:8080/demo-spring-security/index.jsp 可以显示，证明并没有 logout 。可能 basic login 不能 logout 吧。
+- 点 Logoff 注销，提交 /logout 成功然后转向 http://localhost:8080/demo-spring-security/login?logout 但页面显示 404 。但在地址栏输入 http://localhost:8080/demo-spring-security/index.jsp 可以显示，证明并没有 logout ！可能 basic login 不能 logout 吧。 basic login 每个请求都在 request header 中有 `Authorization:Basic amltaTpqaW1pc3Bhc3N3b3Jk` 字样。
 

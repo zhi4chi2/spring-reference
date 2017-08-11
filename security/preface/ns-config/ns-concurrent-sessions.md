@@ -111,7 +111,7 @@ src/main/webapp/index.jsp
 </head>
 <body>
   <form action="<c:url value='/logout' />" method="post">
-    <input type="submit" value="Logoff" /> (also clears any remember-me cookie)
+    <input type="submit" value="Logoff" />
     <security:csrfInput />
   </form>
 </body>
@@ -159,9 +159,9 @@ spring-security.xml
 - Firefox 访问 http://localhost:8080/demo-spring-security/ ，登入，报错 org.springframework.security.web.authentication.session.SessionAuthenticationException: Maximum sessions of 1 for this principal exceeded 返回 302 redirect 到 /login.jsp?login_error=1
 
 
-The second login will then be rejected. By "rejected", we mean that the user will be sent to the authentication-failure-url if form-based login is being used. If the second authentication takes place through another non-interactive mechanism, such as "remember-me", an "unauthorized" (401) error will be sent to the client. If instead you want to use an error page, you can add the attribute session-authentication-error-url to the session-management element.
+> The second login will then be rejected. By "rejected", we mean that the user will be sent to the authentication-failure-url if form-based login is being used. If the second authentication takes place through another non-interactive mechanism, such as "remember-me", an "unauthorized" (401) error will be sent to the client. If instead you want to use an error page, you can add the attribute session-authentication-error-url to the session-management element.
 
-If you are using a customized authentication filter for form-based login, then you have to configure concurrent session control support explicitly. More details can be found in the Session Management chapter.
+> If you are using a customized authentication filter for form-based login, then you have to configure concurrent session control support explicitly. More details can be found in the Session Management chapter.
 
 
 所以如果使用 form-login 则是 redirect 到 form-login.authentication-failure-url 。

@@ -1,29 +1,3 @@
-src/main/webapp/WEB-INF/web.xml
-```xml
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
-  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID"
-  version="2.5">
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath*:spring-*.xml</param-value>
-  </context-param>
-
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-
-  <filter>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-</web-app>
-```
-
-
 src/main/resources/spring-security.xml
 ```xml
 <beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"
@@ -106,7 +80,7 @@ src/main/webapp/index.jsp
 </head>
 <body>
   <form action="<c:url value='/logout' />" method="post">
-    <input type="submit" value="Logoff" /> (also clears any remember-me cookie)
+    <input type="submit" value="Logoff" />
     <security:csrfInput />
   </form>
 </body>
@@ -144,7 +118,7 @@ src/main/webapp/invalidSession.html
 所以虽然与文档中说的结果一致，但实际原理是不一样的。
 
 
-Note that if you use this mechanism to detect session timeouts, it may falsely report an error if the user logs out and then logs back in without closing the browser. This is because the session cookie is not cleared when you invalidate the session and will be resubmitted even if the user has logged out.
+> Note that if you use this mechanism to detect session timeouts, it may falsely report an error if the user logs out and then logs back in without closing the browser. This is because the session cookie is not cleared when you invalidate the session and will be resubmitted even if the user has logged out.
 
 
 也因此 logout delete-cookies 是不起作用的。

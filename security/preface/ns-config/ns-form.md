@@ -1,29 +1,3 @@
-src/main/webapp/WEB-INF/web.xml
-```xml
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
-  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID"
-  version="2.5">
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath*:spring-*.xml</param-value>
-  </context-param>
-
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-
-  <filter>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-</web-app>
-```
-
-
 # permitAll
 src/main/resources/spring-security.xml
 ```xml
@@ -106,7 +80,7 @@ src/main/webapp/index.jsp
 </head>
 <body>
   <form action="<c:url value='/logout' />" method="post">
-    <input type="submit" value="Logoff" /> (also clears any remember-me cookie)
+    <input type="submit" value="Logoff" />
     <security:csrfInput />
   </form>
 </body>
@@ -115,16 +89,16 @@ src/main/webapp/index.jsp
 
 
 浏览器访问 http://localhost:8080/demo-spring-security/ 测试：
-- 正确输入用户名密码，进入 index.jsp
-- log out
-- 错误输入用户名密码，提示出错
+- 正确输入用户名密码，进入 http://localhost:8080/demo-spring-security/
+- 点 Logoff 转到 http://localhost:8080/demo-spring-security/login.jsp?logout
+- 错误输入用户名密码，转到 http://localhost:8080/demo-spring-security/login.jsp?login_error=1 提示出错(Bad credentials)
 
 
 注意将 login.jsp 的第 21 行改为
 ```jsp
         <td><input type='text' name='username' value='<c:if test="${not empty param.login_error}"><c:out value="${SPRING_SECURITY_LAST_USERNAME}"/></c:if>' /></td>
 ```
-并不会起作用，因为 UsernamePasswordAuthenticationFilter.SPRING_SECURITY_LAST_USERNAME_KEY 在 spring security 3 中已经标为 deprecated ，在 spring 4 中已经删除。如果想得到 last username 需要自定义 AuthenticationFailureHandler
+并不会起作用，因为 UsernamePasswordAuthenticationFilter.SPRING\_SECURITY\_LAST\_USERNAME\_KEY 在 spring security 3 中已经标为 deprecated ，在 spring 4 中已经删除。如果想得到 last username 需要自定义 AuthenticationFailureHandler
 
 
 # security="none" 方式
@@ -168,7 +142,16 @@ src/main/resources/spring-security.xml
 因此如果 spring-security.xml 中没有加第 10 行 csrf disabled 的话，就会导致 csrf 出错。
 
 
+index.jsp 中类似。
+
+
 综上， security="none" 方式不如 access="permitAll" 方式。
+
+
+浏览器访问 http://localhost:8080/demo-spring-security/ 测试：
+- 正确输入用户名密码，进入 http://localhost:8080/demo-spring-security/
+- 点 Logoff 转到 http://localhost:8080/demo-spring-security/login.jsp?logout
+- 错误输入用户名密码，转到 http://localhost:8080/demo-spring-security/login.jsp?login_error=1 提示出错(Bad credentials)
 
 
 # form-login 属性
@@ -188,6 +171,7 @@ If a form login isn't prompted by an attempt to access a protected resource, the
 ```
 
 
+## default-target-url
 然后修改 src/main/resources/spring-security.xml
 ```xml
 <beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"
@@ -216,12 +200,13 @@ If a form login isn't prompted by an attempt to access a protected resource, the
 
 测试：
 - 浏览器访问 http://localhost:8080/demo-spring-security/ ，登入，进入 index.jsp
-- 注销
+- 点 Logoff 注销
 - 再次登入，进入 hello.html
-- 访问 http://localhost:8080/demo-spring-security/index.jsp 注销
+- 访问 http://localhost:8080/demo-spring-security/index.jsp ，点 Logoff 注销
 - 访问 http://localhost:8080/demo-spring-security/login.jsp 登入，进入 hello.html
 
 
+## always-use-default-target
 再次修改 src/main/resources/spring-security.xml
 ```xml
 <beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"

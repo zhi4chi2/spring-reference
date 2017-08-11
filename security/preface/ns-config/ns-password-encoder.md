@@ -1,29 +1,3 @@
-src/main/webapp/WEB-INF/web.xml
-```xml
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
-  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID"
-  version="2.5">
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath*:spring-*.xml</param-value>
-  </context-param>
-
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-
-  <filter>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-</web-app>
-```
-
-
 src/main/resources/spring-security.xml
 ```xml
 <beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans"
@@ -108,7 +82,7 @@ src/main/webapp/index.jsp
 </head>
 <body>
   <form action="<c:url value='/logout' />" method="post">
-    <input type="submit" value="Logoff" /> (also clears any remember-me cookie)
+    <input type="submit" value="Logoff" />
     <security:csrfInput />
   </form>
 </body>
@@ -118,6 +92,8 @@ src/main/webapp/index.jsp
 
 测试：
 - 浏览器访问 http://localhost:8080/demo-spring-security/ ，登入，进入 /
+- 注销
+- 输入错误密码，提示 Bad credentials
 
 
 spring-security.xml 中加密的值可以如下得到
