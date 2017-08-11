@@ -38,14 +38,14 @@
 - Preface
   - Java Configuration
   - Security Namespace Configuration
-    - [A Minimal http Configuration](/security/preface/ns-config/minimal-http.md)
-    - [form login](/security/preface/ns-config/form-login.md)
-    - [basic login](/security/preface/ns-config/basic-login.md)
-    - [logout](/security/preface/ns-config/logout.md)
-    - [Using other Authentication Providers](/security/preface/ns-config/authentication-provider.md)
-    - [Adding a Password Encoder](/security/preface/ns-config/password-encoder.md)
-    - [Detecting Timeouts](/security/preface/ns-config/invalid-session-url.md)
-    - [Concurrent Session Control](/security/preface/ns-config/concurrency-control.md)
+    - [A Minimal http Configuration](/security/preface/ns-config/ns-minimal.md)
+    - [Form Login Options](/security/preface/ns-config/ns-form.md)
+    - [Basic Login Options](/security/preface/ns-config/ns-basic.md)
+    - [Logout Handling](/security/preface/ns-config/ns-logout.md)
+    - [Using other Authentication Providers](/security/preface/ns-config/ns-auth-providers.md)
+    - [Adding a Password Encoder](/security/preface/ns-config/ns-password-encoder.md)
+    - [Detecting Timeouts](/security/preface/ns-config/detecting-timeouts.md)
+    - [Concurrent Session Control](/security/preface/ns-config/ns-concurrent-sessions.md)
 - Testing
 - Web Application Security
 - Mine
