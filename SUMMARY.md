@@ -46,8 +46,13 @@
     - [Adding a Password Encoder](/security/preface/ns-config/ns-password-encoder.md)
     - [Detecting Timeouts](/security/preface/ns-config/detecting-timeouts.md)
     - [Concurrent Session Control](/security/preface/ns-config/ns-concurrent-sessions.md)
+- Architecture and Implementation
+  - Technical Overview
+    - [Localization](/security/overall-architecture/technical-overview/localization.md)
 - Testing
 - Web Application Security
+  - Remember-Me Authentication
+    - [Simple Hash-Based Token Approach](/security/web-app-security/remember-me/remember-me-hash-token.md)
 - Mine
   - [输出用到的 beans](/security/mine/show-used-beans.md)
 
