@@ -1,4 +1,8 @@
 # 术语
+- configuration metadata - represented in XML, Java annotations, or Java code. It allows you to express the objects that compose your application and the rich interdependencies between such objects.
+- bean - an object that is instantiated, assembled, and otherwise managed by a Spring IoC container.
+- factory bean - a bean that is configured in the Spring container that will create objects through an instance or static factory method.
+- FactoryBean - a Spring-specific FactoryBean
 
 
 # modules

@@ -1,5 +1,3 @@
-# Configuration metadata
-# Instantiating a container
 src/main/resources/test.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -47,7 +45,7 @@ public class Test {
 ```
 
 
-## Composing XML-based configuration metadata
+# Composing XML-based configuration metadata
 src/main/resources/spring/test.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -120,4 +118,10 @@ public class Test {
 `<import>` 元素的解析见 org.springframework.beans.factory.xml.DefaultBeanDefinitionDocumentReader.importBeanDefinitionResource(Element ele)
 
 
-import.resource 中可以有 ".." ，甚至对于 "classpath:../" 也是可以的，还可以是绝对 URI ，但都不推荐。（未测试）
+> It is possible, but not recommended, to reference files in parent directories using a relative "../" path. Doing so creates a dependency on a file that is outside the current application. In particular, this reference is not recommended for "classpath:" URLs (for example, "classpath:../services.xml"), where the runtime resolution process chooses the "nearest" classpath root and then looks into its parent directory. Classpath configuration changes may lead to the choice of a different, incorrect directory.
+>
+> You can always use fully qualified resource locations instead of relative paths: for example, "file:C:/config/services.xml" or "classpath:/config/services.xml". However, be aware that you are coupling your application’s configuration to specific absolute locations. It is generally preferable to keep an indirection for such absolute locations, for example, through "${…​}" placeholders that are resolved against JVM system properties at runtime.
+
+
+# The Groovy Bean Definition DSL
+FIXME

@@ -1,37 +1,20 @@
 # Summary
 ## [Spring Framework](/framework/README.md)
-- Overview of Spring Framework
-  - Getting Started with Spring
-  - [Introduction to the Spring Framework](/framework/overview/README.md)
-- What’s New in Spring Framework 4.x
-  - [New Features and Enhancements in Spring Framework 4.0](/framework/new-in-4.0/README.md)
-  - [New Features and Enhancements in Spring Framework 4.1](/framework/new-in-4.1/README.md)
-  - [New Features and Enhancements in Spring Framework 4.2](/framework/new-in-4.2/README.md)
-  - [New Features and Enhancements in Spring Framework 4.3](/framework/new-in-4.3/README.md)
 - Core Technologies
-  - [The IoC container](/framework/beans/README.md)
-    - Introduction to the Spring IoC container and beans
-    - [Container overview](/framework/beans/02.md)
-    - [Bean overview](/framework/beans/03.md)
-    - [Dependencies](/framework/beans/04.md)
-    - [Bean scopes](/framework/beans/05.md)
-    - [Customizing the nature of a bean](/framework/beans/06.md)
-    - [Bean definition inheritance](/framework/beans/07.md)
-    - [Container Extension Points](/framework/beans/08.md)
-    - [Annotation-based container configuration](/framework/beans/09.md)
-    - [Classpath scanning and managed components](/framework/beans/10.md)
-    - [Using JSR 330 Standard Annotations](/framework/beans/11.md)
-    - [Java-based container configuration](/framework/beans/12.md)
-    - [Environment abstraction](/framework/beans/13.md)
-    - [Registering a LoadTimeWeaver](/framework/beans/14.md)
-    - [Additional Capabilities of the ApplicationContext](/framework/beans/15.md)
-    - [The BeanFactory](/framework/beans/16.md)
+  - The IoC container
+    - Container overview
+      - [Instantiating a container](/framework/beans/beans-factory-instantiation.md)
+    - Bean overview
+      - [Naming beans](/framework/beans/beans-beanname.md)
+      - [Instantiating beans](/framework/beans/beans-factory-class.md)
+    - Dependencies
+      - [Dependency Injection](/framework/beans/beans-factory-collaborators.md)
+      - [Dependencies and configuration in detail](/framework/beans/beans-factory-properties-detailed.md)
+      - [Using depends-on](/framework/beans/beans-factory-dependson.md)
+      - [Lazy-initialized beans](/framework/beans/beans-factory-lazy-init.md)
+      - [Autowiring collaborators](/framework/beans/beans-factory-autowire.md)
 - Data Access
   - [Data access with JDBC](/framework/jdbc/README.md)
-    - [Introduction to Spring Framework JDBC](/framework/jdbc/01.md)
-    - [Using the JDBC core classes to control basic JDBC processing and error handling](/framework/jdbc/02/README.md)
-      - [JdbcTemplate](/framework/jdbc/02/01.md)
-      - [NamedParameterJdbcTemplate](/framework/jdbc/02/02.md)
 
 
 ## [Spring Security](/security/README.md)
