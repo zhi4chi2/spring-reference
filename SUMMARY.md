@@ -13,6 +13,12 @@
       - [Using depends-on](/framework/beans/beans-factory-dependson.md)
       - [Lazy-initialized beans](/framework/beans/beans-factory-lazy-init.md)
       - [Autowiring collaborators](/framework/beans/beans-factory-autowire.md)
+      - [Method injection](/framework/beans/beans-factory-method-injection.md)
+    - Bean scopes
+      - [The prototype scope](/framework/beans/beans-factory-scopes-prototype.md)
+      - [Request, session, global session, application, and WebSocket scopes](/framework/beans/beans-factory-scopes-other.md)
+      - [Custom scopes](/framework/beans/beans-factory-scopes-custom.md)
+    - [Customizing the nature of a bean](/framework/beans/beans-factory-nature.md)
 - Data Access
   - [Data access with JDBC](/framework/jdbc/README.md)
 

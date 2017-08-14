@@ -1,11 +1,12 @@
-# default
 AutowireCapableBeanFactory
 - AUTOWIRE\_NO - 0
 - AUTOWIRE\_BY\_NAME - 1
 - AUTOWIRE\_BY\_TYPE - 2
 - AUTOWIRE\_CONSTRUCTOR - 3
+- AUTOWIRE_AUTODETECT - 4
 
 
+# default
 ## default default
 src/main/resources/spring/test.xml
 ```xml
@@ -211,7 +212,7 @@ src/main/resources/spring/test.xml
   xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
   <bean id="a" class="org.example.demo.spring.context.Test.A" autowire="byName" />
-  <bean id="b2" class="org.example.demo.spring.context.Test.B" />
+  <bean id="b" class="org.example.demo.spring.context.Test.B" />
 </beans>
 ```
 
@@ -228,13 +229,13 @@ public class Test {
     }
 
     public static class A {
-        public void setB1(B b) {
-            System.out.println("in setB1 " + b);
+        public void setB(B b) {
+            // in setB org.example.demo.spring.context.Test$B@32eebfca
+            System.out.println("in setB " + b);
         }
 
-        public void setB2(B b) {
-            // in setB2 org.example.demo.spring.context.Test$B@32eebfca
-            System.out.println("in setB2 " + b);
+        public void setC(B b) {
+            System.out.println("in setC " + b);
         }
     }
 
@@ -245,9 +246,11 @@ public class Test {
 
 
 结论
-- bean a 有个属性 b2 ，则查找名为 b2 的 bean
-  - 如果找到（不可能找到多个），设置 bean a 的属性 b2 为 bean b2
-  - 如果没有找到（比如属性 b1 ），什么都不做（没有输出）。
+___
+
+如果 bean a 有个属性 b ，则查找名为 b 的 bean
+- 如果找到（不可能找到多个），设置 bean a 的属性 b 为 bean b
+- 如果没有找到（比如属性 c ），什么都不做。
 
 
 相关源码参见 org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory 第 1288 行
@@ -312,6 +315,7 @@ public class Test {
     }
 }
 ```
+___
 
 
 如果修改 test.xml
@@ -328,6 +332,7 @@ public class Test {
 
 
 再次运行 Test 抛异常 `org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'org.example.demo.spring.context.Test$B' available: expected single matching bean but found 2: b,c`
+___
 
 
 再修改 test.xml
@@ -369,6 +374,7 @@ public class Test {
     }
 }
 ```
+___
 
 
 再修改 test.xml
@@ -385,6 +391,7 @@ public class Test {
 
 
 运行 Test 抛异常 `org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'org.example.demo.spring.context.Test$B' available: more than one 'primary' bean found among candidates: [b, c]`
+___
 
 
 再次修改 test.xml ，显式定义依赖：
@@ -428,6 +435,7 @@ public class Test {
     }
 }
 ```
+___
 
 
 再次修改 test.xml ，这次将 bean b, c 的定义都去掉
@@ -463,6 +471,7 @@ public class Test {
     }
 }
 ```
+___
 
 
 结论：
@@ -483,3 +492,336 @@ public class Test {
 
 
 # constructor
+src/main/resources/spring/test.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <bean id="a" class="org.example.demo.spring.context.Test.A" autowire="constructor" />
+  <bean id="b" class="org.example.demo.spring.context.Test.B" />
+</beans>
+```
+
+
+```java
+package org.example.demo.spring.context;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+    public static void main(String[] args) {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/test.xml");
+        applicationContext.close();
+    }
+
+    public static class A {
+        public A(B b) {
+            // org.example.demo.spring.context.Test$B@87f383f
+            System.out.println(b);
+        }
+    }
+
+    public static class B {
+    }
+}
+```
+___
+
+
+修改 test.xml 再添加一个类型为 B 的 bean
+src/main/resources/spring/test.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <bean id="a" class="org.example.demo.spring.context.Test.A" autowire="constructor" />
+  <bean id="b" class="org.example.demo.spring.context.Test.B" />
+  <bean id="c" class="org.example.demo.spring.context.Test.B" />
+</beans>
+```
+
+
+仍然可以正常运行！
+___
+
+
+再修改 test.xml ，将 bean 的 id 改为别的名字（与构造函数中不一样）
+
+
+src/main/resources/spring/test.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <bean id="a" class="org.example.demo.spring.context.Test.A" autowire="constructor" />
+  <bean id="d" class="org.example.demo.spring.context.Test.B" />
+  <bean id="c" class="org.example.demo.spring.context.Test.B" />
+</beans>
+```
+
+
+运行 Test 抛异常 `org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'org.example.demo.spring.context.Test$B' available: expected single matching bean but found 2: d,c`
+___
+
+
+添加 primary="true"
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <bean id="a" class="org.example.demo.spring.context.Test.A" autowire="constructor" />
+  <bean id="d" class="org.example.demo.spring.context.Test.B" primary="true" />
+  <bean id="c" class="org.example.demo.spring.context.Test.B" />
+</beans>
+```
+
+
+又可以正常运行。
+___
+
+
+再添加 primary="true"
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <bean id="a" class="org.example.demo.spring.context.Test.A" autowire="constructor" />
+  <bean id="d" class="org.example.demo.spring.context.Test.B" primary="true" />
+  <bean id="c" class="org.example.demo.spring.context.Test.B" primary="true" />
+</beans>
+```
+
+
+又抛异常 `org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'org.example.demo.spring.context.Test$B' available: more than one 'primary' bean found among candidates: [d, c]`
+___
+
+
+再次修改 test.xml ，显式定义依赖
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <bean id="a" class="org.example.demo.spring.context.Test.A" autowire="constructor">
+    <constructor-arg name="b" ref="c" />
+  </bean>
+  <bean id="d" class="org.example.demo.spring.context.Test.B" primary="true" />
+  <bean id="c" class="org.example.demo.spring.context.Test.B" primary="true" />
+</beans>
+```
+
+
+运行正常。
+___
+
+
+再次修改 test.xml ，这次将 bean d, c 的定义都去掉
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <bean id="a" class="org.example.demo.spring.context.Test.A" autowire="constructor" />
+</beans>
+```
+
+
+运行抛异常 `org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'org.example.demo.spring.context.Test$B' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}`
+___
+
+
+结论：
+
+
+constructor 与 byType 类似，但是应用于构造器参数。
+
+
+如果 bean a 有个构造器参数 b 的类为 B ，则查找类型为 B 的 bean
+- 如果仅找到一个，设置 bean a 的构造器参数 b 为找到的 bean
+- 如果没有找到，**将抛异常**，这是与 byType 的不同之处
+- 如果找到多个
+  - **如果其中一个的 identifier 与构造器参数名相同，返回它**，这也是与 byType 的不同
+  - 如果其中只有一个 bean 的 primary 属性为 true ，返回它
+  - 如果其中没有 primary 为 true 或者有多个为 true ，抛出异常。
+
+
+相关源码参见 org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor() 方法。
+
+
+# autodetect
+参见 `org.springframework.beans.factory.support.AbstractBeanDefinition.getResolvedAutowireMode()`
+```java
+	public int getResolvedAutowireMode() {
+		if (this.autowireMode == AUTOWIRE_AUTODETECT) {
+			// Work out whether to apply setter autowiring or constructor autowiring.
+			// If it has a no-arg constructor it's deemed to be setter autowiring,
+			// otherwise we'll try constructor autowiring.
+			Constructor<?>[] constructors = getBeanClass().getConstructors();
+			for (Constructor<?> constructor : constructors) {
+				if (constructor.getParameterTypes().length == 0) {
+					return AUTOWIRE_BY_TYPE;
+				}
+			}
+			return AUTOWIRE_CONSTRUCTOR;
+		}
+		else {
+			return this.autowireMode;
+		}
+	}
+```
+
+
+可见如果为 autodetect ，如果有 public 的无参数构造器，则使用 byType ，否则使用 constructor 。
+
+
+# wire arrays and typed-collections and strongly-typed Maps
+src/main/resources/spring/test.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <bean id="a" class="org.example.demo.spring.context.Test.A" autowire="byType" />
+  <bean id="b" class="org.example.demo.spring.context.Test.B" />
+  <bean id="c" class="org.example.demo.spring.context.Test.B" />
+</beans>
+```
+
+
+```java
+package org.example.demo.spring.context;
+
+import java.util.Arrays;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+    public static void main(String[] args) {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/test.xml");
+        // org.example.demo.spring.context.Test$B@306279ee
+        System.out.println(applicationContext.getBean("b"));
+        // org.example.demo.spring.context.Test$B@545997b1
+        System.out.println(applicationContext.getBean("c"));
+        applicationContext.close();
+    }
+
+    public static class A {
+        public void setB(B[] bs) {
+            // [org.example.demo.spring.context.Test$B@306279ee, org.example.demo.spring.context.Test$B@545997b1]
+            System.out.println(Arrays.asList(bs));
+        }
+    }
+
+    public static class B {
+    }
+}
+```
+
+
+将 Test 改为使用 List
+```java
+package org.example.demo.spring.context;
+
+import java.util.List;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+    public static void main(String[] args) {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/test.xml");
+        // org.example.demo.spring.context.Test$B@5d11346a
+        System.out.println(applicationContext.getBean("b"));
+        // org.example.demo.spring.context.Test$B@7a36aefa
+        System.out.println(applicationContext.getBean("c"));
+        applicationContext.close();
+    }
+
+    public static class A {
+        public void setB(List<B> bs) {
+            // [org.example.demo.spring.context.Test$B@5d11346a, org.example.demo.spring.context.Test$B@7a36aefa]
+            System.out.println(bs);
+        }
+    }
+
+    public static class B {
+    }
+}
+```
+
+
+改为使用 Map
+```java
+package org.example.demo.spring.context;
+
+import java.util.Map;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+    public static void main(String[] args) {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/test.xml");
+        // org.example.demo.spring.context.Test$B@6ec8211c
+        System.out.println(applicationContext.getBean("b"));
+        // org.example.demo.spring.context.Test$B@7276c8cd
+        System.out.println(applicationContext.getBean("c"));
+        applicationContext.close();
+    }
+
+    public static class A {
+        public void setB(Map<String, B> map) {
+            // {b=org.example.demo.spring.context.Test$B@6ec8211c, c=org.example.demo.spring.context.Test$B@7276c8cd}
+            System.out.println(map);
+        }
+    }
+
+    public static class B {
+    }
+}
+```
+
+
+# Excluding a bean from autowiring
+autowire-candidate 对 byName autowire 不起作用
+
+
+src/main/resources/spring/test.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <bean id="a" class="org.example.demo.spring.context.Test.A" autowire="byName" />
+  <bean id="b" class="org.example.demo.spring.context.Test.B" autowire-candidate="false" />
+</beans>
+```
+
+
+```java
+package org.example.demo.spring.context;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+    public static void main(String[] args) {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/test.xml");
+        applicationContext.close();
+    }
+
+    public static class A {
+        public void setB(B b) {
+            // org.example.demo.spring.context.Test$B@32eebfca
+            System.out.println(b);
+        }
+    }
+
+    public static class B {
+    }
+}
+```
+
+

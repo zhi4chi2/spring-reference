@@ -3,6 +3,7 @@
 - bean - an object that is instantiated, assembled, and otherwise managed by a Spring IoC container.
 - factory bean - a bean that is configured in the Spring container that will create objects through an instance or static factory method.
 - FactoryBean - a Spring-specific FactoryBean
+- lookup method injection - override methods on container managed beans, to return the lookup result for another named bean in the container.
 
 
 # modules
