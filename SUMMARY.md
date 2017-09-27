@@ -49,6 +49,8 @@
 ## [Spring Data](/data/README.md)
 - [JPA](/data/jpa/README.md)
 - [Spring Data 实战](/data/book/README.md)
+  - [Spring Data 项目](/data/book/01.md)
+  - [Repository: 便利的数据访问层](/data/book/02.md)
 
 
 ## [Spring Boot](/boot/README.md)
